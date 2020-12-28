@@ -19,14 +19,16 @@ class TextToSpeechBlobView(APIView):
     def post(self, request):
         body_decoded = json.loads(request.body)
 
+        print(body_decoded)
+
         file_created, file_name = self.utils.translate(body_decoded, settings.MEDIA_ROOT) 
 
         if file_created:
             file_object = self.storage.open(file_name, mode="rb")
 
-            response = HttpResponse(file_object, content_type="audio/mpeg")
-            response['Content-Disposition'] = 'attachment; filename="%s"' % file_name
-            #response = FileResponse(file_object)
+            #response = HttpResponse(file_object, content_type="audio/mpeg")
+            #response['Content-Disposition'] = 'attachment; filename="%s"' % file_name
+            response = FileResponse(file_object, filename=file_name)
 
             return response
 
@@ -57,13 +59,16 @@ class TextToSpeechUrlView(APIView):
     storage = FileSystemStorage(location=settings.MEDIA_URL)
 
     def post(self, request):
+        print(request.body)
         body_decoded = json.loads(request.body)
+        print(body_decoded)
+
         file_created, file_name = self.utils.translate(body_decoded, settings.MEDIA_ROOT)
         
         if file_created:            
             url = self.storage.url(file_name)
 
-            return JsonResponse({"audio_url" : url}, status=status.HTTP_200_OK)
+            return JsonResponse({"audio_url" : url, "name" : file_name}, status=status.HTTP_200_OK)
 
         else:
             return JsonResponse({"error" : "An error occurred during convertion"}, status=status.HTTP_400_BAD_REQUEST)
