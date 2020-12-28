@@ -19,8 +19,6 @@ class TextToSpeechBlobView(APIView):
     def post(self, request):
         body_decoded = json.loads(request.body)
 
-        print(body_decoded)
-
         file_created, file_name = self.utils.translate(body_decoded, settings.MEDIA_ROOT) 
 
         if file_created:
@@ -37,8 +35,7 @@ class TextToSpeechBlobView(APIView):
 
 
     def get(self, request):
-        body_decoded = json.loads(request.body)
-        file_name = body_decoded['name'] 
+        file_name = request.query_params['name']
 
         if self.storage.exists(file_name):
             file_object = self.storage.open(file_name, mode="rb")
@@ -50,6 +47,18 @@ class TextToSpeechBlobView(APIView):
 
         else:
             return JsonResponse({"error" : "Resource doesnt exist"}, status=status.HTTP_404_NOT_FOUND)
+
+    def delete(self, request, name):
+        file_name = name #request.query_params['name']    
+        print(file_name)
+
+        if self.storage.exists(file_name):
+            self.storage.delete(file_name)
+
+            return JsonResponse({"msg" : "The resource was removed from storage"}, status=status.HTTP_200_OK)
+        
+        else:
+            return JsonResponse({"error" : "Resource doesnt exist"}, status=status.HTTP_404_NOT_FOUND)            
 
 
 
@@ -75,8 +84,7 @@ class TextToSpeechUrlView(APIView):
 
 
     def get(self, request):
-        body_decoded = json.loads(request.body)
-        file_name = body_decoded['name']
+        file_name = request.query_params['name']
 
         self.storage = FileSystemStorage(location=settings.MEDIA_ROOT)
 
@@ -90,14 +98,12 @@ class TextToSpeechUrlView(APIView):
         else:
             return JsonResponse({"error" : "Resource doesnt exist"}, status=status.HTTP_404_NOT_FOUND)
 
+    
+    def delete(self, request, name):
+        file_name = name #request.query_params['name']    
+        print(file_name)
 
-class TextToSpeechView(APIView):
-
-    storage = FileSystemStorage(location=MEDIA_ROOT)
-
-    def delete(self, request):
-        body_decoded = json.loads(request.body)
-        file_name = body_decoded['name']
+        self.storage = FileSystemStorage(location=settings.MEDIA_ROOT)
 
         if self.storage.exists(file_name):
             self.storage.delete(file_name)
@@ -105,4 +111,6 @@ class TextToSpeechView(APIView):
             return JsonResponse({"msg" : "The resource was removed from storage"}, status=status.HTTP_200_OK)
         
         else:
-            return JsonResponse({"error" : "Resource doesnt exist"}, status=status.HTTP_404_NOT_FOUND)
+            return JsonResponse({"error" : "Resource doesnt exist"}, status=status.HTTP_404_NOT_FOUND)            
+
+
