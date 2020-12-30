@@ -7,8 +7,8 @@
 
 
 **Cliente de ejemplo:**
-*Sitio: https://nicoconte.github.io/gTTS-API-Client-Example/*
-*Repo: https://github.com/Nicoconte/gTTS-API-Client-Example*
+* Sitio: https://nicoconte.github.io/gTTS-API-Client-Example/
+* Repo: https://github.com/Nicoconte/gTTS-API-Client-Example
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
