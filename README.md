@@ -6,17 +6,17 @@
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-**Cliente de ejemplo: 
-*Sitio: https://nicoconte.github.io/gTTS-API-Client-Example/**
-*Repo: https://github.com/Nicoconte/gTTS-API-Client-Example**
+**Cliente de ejemplo:**
+*Sitio: https://nicoconte.github.io/gTTS-API-Client-Example/*
+*Repo: https://github.com/Nicoconte/gTTS-API-Client-Example*
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-** URL: https://gttsapi.herokuapp.com/gtts/api/text-to-speech/blob/
+**URL: https://gttsapi.herokuapp.com/gtts/api/text-to-speech/blob/**
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-** Uso: 
+**Uso:** 
 
 ```javascript
 
