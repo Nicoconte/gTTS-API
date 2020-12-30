@@ -24,9 +24,9 @@ class TextToSpeechBlobView(APIView):
         if file_created:
             file_object = self.storage.open(file_name, mode="rb")
 
-            #response = HttpResponse(file_object, content_type="audio/mpeg")
-            #response['Content-Disposition'] = 'attachment; filename="%s"' % file_name
-            response = FileResponse(file_object, filename=file_name)
+            response = HttpResponse(file_object, content_type="audio/mpeg")
+            response['Content-Disposition'] = 'attachment; filename="%s"' % file_name
+            #response = FileResponse(file_object)
 
             return response
 
